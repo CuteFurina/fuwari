@@ -13,6 +13,39 @@
 &lt;p&gt;粉丝自建&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;a href=&quot;https://t.me/blog2x&quot;&gt;Telegram: View @blog2x&lt;/a&gt;&lt;/p&gt;
+</content:encoded></item><item><title>上手米哈游AI，然后把它逆了！</title><link>https://2x.nz/posts/anuneko/</link><guid isPermaLink="true">https://2x.nz/posts/anuneko/</guid><description>AnuNeko是一只会哈气的橘猫...其实不是，AnuNeko是由米哈游创始人做的AI大模型，会哈气。于是便做个QQBot给群友玩</description><pubDate>Tue, 02 Dec 2025 09:11:40 GMT</pubDate><content:encoded>&lt;h1&gt;这是What&lt;/h1&gt;
+&lt;p&gt;这是橘猫，会哈气（见封面&lt;/p&gt;
+&lt;p&gt;你可以前往 &lt;a href=&quot;https://anuneko.com/#/chat&quot;&gt;AnuNeko&lt;/a&gt; 逗猫&lt;/p&gt;
+&lt;h1&gt;逆！&lt;/h1&gt;
+&lt;p&gt;okok，注意到登陆后的请求头中有 &lt;code&gt;x-token&lt;/code&gt; 字段
+&lt;img src=&quot;https://2x.nz/_astro/anuneko-1.DWTZVhm6_Zi6zEA.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;手搓个请求发发，&lt;code&gt;data&lt;/code&gt; 携带内容&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;curl --location &apos;https://anuneko.com/api/v1/msg/会话id/stream&apos; \
+--header &apos;x-token: 账号Token&apos; \
+--header &apos;Content-Type: text/plain&apos; \
+--header &apos;Cookie: 自动拿取&apos; \
+--data &apos;{&quot;contents&quot;:[&quot;test&quot;]}&apos;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;通了
+&lt;img src=&quot;https://2x.nz/_astro/anuneko-2.J0wOCVp6_y1TS4.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;然后还有一种情况，在遇到Pick的时候，我们要发送要选择的回复编号
+&lt;img src=&quot;https://2x.nz/_astro/anuneko-3.DyuhBgC-_1qQiRE.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;发个如图请求帮橘猫选择&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;curl --location &apos;https://anuneko.com/api/v1/msg/select-choice&apos; \
+--header &apos;x-token: 你的Token&apos; \
+--header &apos;Content-Type: text/plain&apos; \
+--header &apos;Cookie: 自动拿取&apos; \
+--data &apos;{&quot;msg_id&quot;:&quot;会话id&quot;,&quot;choice_idx&quot;:0或1}&apos;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;还有还有，这有个橘猫和黑猫，如何切换一个会话的猫？&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;curl --location &apos;https://anuneko.com/api/v1/user/select_model&apos; \
+--header &apos;x-token: 你的Token&apos; \
+--header &apos;Content-Type: text/plain&apos; \
+--header &apos;Cookie: 自动拿取&apos; \
+--data &apos;{&quot;chat_id&quot;:&quot;会话id&quot;,&quot;model&quot;:&quot;Exotic Shorthair或Orange Cat&quot;}&apos;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;随便写了个适用于NoneBot2的插件，玩吧
+&lt;a href=&quot;https://github.com/afoim/AnuNeko_NoneBot2_Plugins/blob/main/anuneko.py&quot;&gt;AnuNeko_NoneBot2_Plugins/anuneko.py at main · afoim/AnuNeko_NoneBot2_Plugins&lt;/a&gt;&lt;/p&gt;
 </content:encoded></item><item><title>盘点那些好用的Serverless（云函数）！</title><link>https://2x.nz/posts/serverless-function/</link><guid isPermaLink="true">https://2x.nz/posts/serverless-function/</guid><description>你是否为了搭建一个网站而买了一台VPS，然后安装宝塔或1Panel再安装Nginx等等等等？现在这些统统不要！只需要稍加学习，你就可以得到一个免费的高可用的托管服务！</description><pubDate>Tue, 25 Nov 2025 08:33:24 GMT</pubDate><content:encoded>&lt;h1&gt;何为Serverless&lt;/h1&gt;
 &lt;p&gt;就像简介所说，传统来说我们搭建Web服务一般会选择买一个VPS，然后在其上安装管理面板，再安装所需软件，如Nginx，AList，最后运行，开放端口，再设置DNS解析，这样，一个网站就成功上线了&lt;/p&gt;
 &lt;p&gt;而Serverless就简单多了，毕竟 &lt;strong&gt;Server&lt;/strong&gt; 被 &lt;strong&gt;Less&lt;/strong&gt; 掉了&lt;/p&gt;
@@ -56,6 +89,17 @@
 &lt;h3&gt;&lt;a href=&quot;https://run.claw.cloud/&quot;&gt;ClawCloud Run | Build, Deploy, Manage &amp;amp; Run in Cloud-Native Platform&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;之前被干爆过，目前亚太爆炸，每个月有 &lt;strong&gt;5 美元&lt;/strong&gt; 余额，直接跑Docker，按你分配的CPU核心数和内存来计费。不过 Hobby 计划还蛮便宜的，常用的话可以买
 &lt;img src=&quot;https://2x.nz/_astro/serverless-function-2.B3UO-Q3d_2hS6PT.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;a href=&quot;https://render.com/&quot;&gt;Render&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://2x.nz/_astro/serverless-function-3.Bs28so9x_jxsjU.webp&quot; alt=&quot;&quot; /&gt;
+&lt;strong&gt;每月免费100G流量&lt;/strong&gt;，支持非常多的服务，如：静态网站、Web服务（Docker）、定时服务、PostgreSQL数据库、Key Vaule存储&lt;/p&gt;
+&lt;p&gt;唯一的缺点，性能不高&lt;/p&gt;
+&lt;h3&gt;&lt;a href=&quot;https://zeabur.com/zh-CN/&quot;&gt;Zeabur&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://2x.nz/_astro/serverless-function-4.hmvrzZtR_jU5Fm.webp&quot; alt=&quot;&quot; /&gt;
+&lt;strong&gt;每月免费5刀额度&lt;/strong&gt; ，免费计划有两个地域可选
+&lt;img src=&quot;https://2x.nz/_astro/serverless-function-5.DIvgyxtf_2qnlpb.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;最重磅的在于你可以将自己的VPS托管给Zeabur，它会在你的服务器上安装k3s等服务，之后你就可以直接在Zeabur的仪表盘上进行运维了&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;最小服务器要求：2GB 内存，1 核 CPU。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://2x.nz/_astro/serverless-function-6.DxOZL36X_2d0DOo.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;h1&gt;结语&lt;/h1&gt;
 &lt;p&gt;Serverless不像传统的VPS，你并不完全拥有它，所以有些服务是不能跑的， &lt;strong&gt;特别是在免费层&lt;/strong&gt; ，如特别吃IO和网络的 &lt;strong&gt;AList&lt;/strong&gt; ，或是并发请求特别高以及商用服务。如果你用的舒心，请考虑购买各大平台的付费版套餐&lt;/p&gt;
 </content:encoded></item><item><title>出门在外，如何优雅、高效、流畅地远程自家电脑？</title><link>https://2x.nz/posts/remote/</link><guid isPermaLink="true">https://2x.nz/posts/remote/</guid><description>当今，我们出门在外，几乎哪哪都能摸到电脑，但是我们大部分的工作文件一般都在自家电脑，为了保持工作流的一致，我们自然就有了远控自家电脑的需求了</description><pubDate>Mon, 24 Nov 2025 18:04:57 GMT</pubDate><content:encoded>&lt;h1&gt;前言&lt;/h1&gt;
