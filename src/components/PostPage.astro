@@ -12,7 +12,7 @@ const interval = 50;
 <div class="transition flex flex-col rounded-[var(--radius-large)] bg-transparent gap-4 mb-4">
 
     {page.data.map((entry: CollectionEntry<"posts">) => (
-        <div class="onload-animation" style={`animation-delay: calc(var(--content-delay) + ${delay++ * interval}ms);`}>
+        <div class="onload-animation p-2 -m-2" style={`animation-delay: calc(var(--content-delay) + ${delay++ * interval}ms);`}>
             <PostCard
                     entry={entry}
                     title={entry.data.title}
@@ -22,7 +22,7 @@ const interval = 50;
                     image={entry.data.image}
                     description={entry.data.description}
                     draft={entry.data.draft}
-            ></PostCard>
+            />
         </div>
     ))}
 </div>
